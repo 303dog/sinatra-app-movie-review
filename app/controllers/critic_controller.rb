@@ -1,0 +1,4 @@
+class CriticController < ApplicationController
+
+
+end
