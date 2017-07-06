@@ -16,5 +16,13 @@ class ApplicationController < Sinatra::Base
   get '/' do
     erb :index
   end
+  
+  def is_logged_in?
+    !!session[:critic_id]
+  end
+
+  def current_critic
+    @critic = Critic.find(session[:critic_id])
+  end
 
 end
