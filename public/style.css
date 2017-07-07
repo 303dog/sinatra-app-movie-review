@@ -1,13 +1,22 @@
 body {
+  background: url("https://s-media-cache-ak0.pinimg.com/originals/c6/aa/8d/c6aa8d8c011c97ec684dd519d973c75b.jpg") no-repeat center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   margin-top: 45px;
   margin-left: 100px;
-  font-family: "Helvetica", Arial, sans-serif;
+  font-family: Garamond, Arial, sans-serif;
   color: #0F0860;
 }
 
 #movie_tickets {
   position: absolute;
   right: 0px;
-  width: 150px;
+  width: 200px;
   padding: 10px 50px;
+}
+
+#title1 {
+  margin-left: 450px;
 }
