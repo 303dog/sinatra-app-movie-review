@@ -24,5 +24,15 @@ class CriticController < ApplicationController
         redirect to '/reviews'
       end
     end
+  
+    # LOG IN
+    get '/login' do #renders the log in page
+      if is_logged_in?
+        flash[:message] = "You were already logged in."
+        redirect '/reviews'
+      else
+        erb :'critic/login'
+      end
+    end  
 
 end
