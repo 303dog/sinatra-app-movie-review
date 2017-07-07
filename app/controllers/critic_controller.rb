@@ -45,5 +45,10 @@ class CriticController < ApplicationController
         redirect "/login"
       end
     end  
+  
+    # Log out
+    get '/logout' do
+
+    end
 
 end
