@@ -12,3 +12,4 @@ use Rack::MethodOverride
 use ReviewController
 use CriticController
 run ApplicationController
+ 
