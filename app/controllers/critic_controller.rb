@@ -34,5 +34,16 @@ class CriticController < ApplicationController
         erb :'critic/login'
       end
     end  
+  
+    post "/login" do
+      @critic = Critic.find_by(username: params[:username]) #find the user
+      if @critic && @critic.authenticate(params[:password]) #check password matches
+        session[:critic_id] = @critic.id   #log them in
+        redirect "/reviews" #show them their reviews
+      else
+        flash[:message] = "Your username or password were not correct. Please try again."
+        redirect "/login"
+      end
+    end  
 
 end
