@@ -70,5 +70,20 @@ class ReviewController < ApplicationController
         redirect to "/reviews/#{@review.id}"
       end
     end
+  
+    # Delete
+    delete '/reviews/:id/delete' do
+      if is_logged_in?
+        @review = Review.find_by_id(params[:id])
+        if @review.critic_id == session[:critic_id]
+          @review.delete
+          flash[:message] = "The review was deleted."
+          redirect to '/reviews'
+        end
+      else
+        flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        redirect to '/login'
+      end
+    end
 
 end
