@@ -25,5 +25,17 @@ class ReviewController < ApplicationController
         redirect to "/reviews/#{@review.id}"
       end
     end  
+  
+    # Read
+    get '/reviews' do
+      if is_logged_in?
+        @critic = current_critic
+        @reviews = @critic.reviews.all
+        erb :'reviews/index'
+      else
+        flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        redirect to '/login'
+      end
+    end
 
 end
