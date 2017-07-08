@@ -12,7 +12,7 @@ class ReviewController < ApplicationController
   
   post '/reviews' do
       if params[:title] == "" || params[:genre] == "" || params[:content] == "" || params[:rating] == "" # must have title, genre, content, & rating
-        flash[:message] = "Oops! Reviews must have a title, genre, content and rating. Please try again."
+        flash[:message] = "Reviews must have a title, genre, content and rating. Please try again."
         redirect to '/reviews/new'
       else
         critic = current_critic
@@ -38,6 +38,20 @@ class ReviewController < ApplicationController
       end
     end
   
+    get '/reviews/:id' do
+      if is_logged_in?
+        @review = Review.find_by_id(params[:id])
+        if @review.critic_id == session[:critic_id]
+          erb :'reviews/show'
+        elsif @review.critic_id != session[:critic_id]
+          redirect '/reviews'
+        end
+      else
+        flash[:message] = "Looks like you weren't logged in yet. Please log in below."
+        redirect to '/reviews'
+      end
+    end
+  
     # Update
     get '/reviews/:id/edit' do
       if is_logged_in?
@@ -45,7 +59,7 @@ class ReviewController < ApplicationController
         if @review.critic_id == session[:critic_id]
           erb :'reviews/edit'
         else
-          flash[:message] = "Sorry that's not your review. You can't edit it."
+          flash[:message] = "Sorry, you may only edit your review."
           redirect to '/reviews'
           end
       else
@@ -56,7 +70,7 @@ class ReviewController < ApplicationController
   
     patch '/reviews/:id' do
       if params[:title] == "" || params[:genre] == "" || params[:content] == "" || params[:rating] == ""
-        flash[:message] = "Oops! Reviews must have a title, genre, content and rating. Please try again."
+        flash[:message] = "Reviews must have a title, genre, content and rating. Please try again."
         redirect to "/reviews/#{params[:id]}/edit"
       else
         @review = Review.find_by_id(params[:id])
