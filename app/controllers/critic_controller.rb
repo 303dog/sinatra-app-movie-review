@@ -48,7 +48,13 @@ class CriticController < ApplicationController
   
     # Log out
     get '/logout' do
-
+      if is_logged_in?
+        session.clear
+        flash[:message] = "You have been logged out of your account."
+        redirect '/login'
+      else
+        redirect '/'
+      end
     end
 
 end
